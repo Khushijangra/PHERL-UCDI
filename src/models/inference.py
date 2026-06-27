@@ -20,7 +20,7 @@ def load_inference_model():
     # Since we symlinked or copied the best model to 'best_model.pt', we need to check if it's PyTorch or Pickle
     try:
         # Try loading as PyTorch dictionary
-        state_dict = torch.load(model_path, map_location='cpu')
+        state_dict = torch.load(model_path, map_location='cpu', weights_only=False)
         is_pytorch = isinstance(state_dict, dict)
     except Exception:
         is_pytorch = False
@@ -40,7 +40,7 @@ def load_inference_model():
     
     # We must know num_features. 
     data_path = os.path.join(base_dir, 'data', 'processed', 'training_dataset.pt')
-    dataset = torch.load(data_path, map_location='cpu')
+    dataset = torch.load(data_path, map_location='cpu', weights_only=False)
     num_features = dataset['data'].x.shape[1]
     
     # We will instantiate GraphSAGE by default if it was the Physics GNN

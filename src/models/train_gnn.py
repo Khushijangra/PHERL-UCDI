@@ -54,7 +54,7 @@ def optimize_and_train():
     if not os.path.exists(data_path):
         raise FileNotFoundError("training_dataset.pt not found.")
         
-    dataset = torch.load(data_path)
+    dataset = torch.load(data_path, weights_only=False)
     data = dataset['data']
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')

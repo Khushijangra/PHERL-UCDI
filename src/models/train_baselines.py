@@ -29,7 +29,7 @@ def train_all_baselines():
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"{data_path} not found. Run dataset_packager.py first.")
         
-    dataset = torch.load(data_path)
+    dataset = torch.load(data_path, weights_only=False)
     data = dataset['data']
     feature_cols = dataset['feature_cols']
     scaler_y = dataset['scaler_y']

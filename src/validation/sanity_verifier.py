@@ -23,7 +23,7 @@ def run_sanity_tests():
     # Load dataset package to get the correct number of features
     base_dir = get_base_dir()
     data_path = os.path.join(base_dir, 'data', 'processed', 'training_dataset.pt')
-    dataset = torch.load(data_path, map_location='cpu')
+    dataset = torch.load(data_path, map_location='cpu', weights_only=False)
     feature_cols = dataset['feature_cols']
     num_features = len(feature_cols)
     col_map = {col: i for i, col in enumerate(feature_cols)}
