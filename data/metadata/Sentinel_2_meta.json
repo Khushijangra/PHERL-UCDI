@@ -1,0 +1,22 @@
+{
+    "dataset": "Sentinel_2",
+    "acquisition_period": "2023-04-01 to 2023-06-30 (Summer)",
+    "projection": "EPSG:4326",
+    "resolution": "50m",
+    "bands": [
+        "B2",
+        "B3",
+        "B4",
+        "B8",
+        "B11",
+        "B12",
+        "NDVI",
+        "NDBI",
+        "NDWI",
+        "SAVI",
+        "EVI",
+        "Albedo",
+        "Vegetation_Fraction",
+        "Impervious_Fraction"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "dataset": "OSM_Morphology",
+    "source": "OpenStreetMap via OSMnx",
+    "projection": "EPSG:4326 (Exported as GeoJSON)",
+    "features": [
+        "Building Footprints",
+        "Road Network",
+        "Intersections"
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "city": "Ahmedabad",
+    "resolution": "50m",
+    "nodes": 9555,
+    "features": 43,
+    "edge_types": [
+        "spatial",
+        "wind",
+        "morphological"
+    ],
+    "actions": [
+        "trees",
+        "coolroof",
+        "reflective_pavement",
+        "water",
+        "ventilation"
+    ]
+}

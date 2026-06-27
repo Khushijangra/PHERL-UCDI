@@ -1,0 +1,11 @@
+{
+    "dataset": "Landsat_Thermal",
+    "acquisition_period": "2023-04-01 to 2023-06-30 (Summer)",
+    "projection": "EPSG:4326",
+    "resolution": "50m",
+    "bands": [
+        "LST_Mean",
+        "LST_Max",
+        "LST_Std"
+    ]
+}
