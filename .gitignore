@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+*.log
+.cache/
+mlruns/
+outputs/
+lightning_logs/
+tensorboard/
+.DS_Store
+Thumbs.db
+.venv/
+env/
+.env
