@@ -14,6 +14,11 @@ from src.models.physics_loss import compute_physics_loss
 def get_base_dir():
     return os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+def load_config():
+    config_path = os.path.join(get_base_dir(), 'configs', 'experiment.json')
+    with open(config_path, 'r') as f:
+        return json.load(f)
+
 def train_eval_model(model_class, data, feature_cols, scaler_y, params, use_physics=False):
     model = model_class(num_features=data.x.shape[1], hidden_dim=params['hidden_dim'], dropout=params['dropout']).to(data.x.device)
     optimizer = torch.optim.Adam(model.parameters(), lr=params['lr'], weight_decay=params['weight_decay'])
@@ -42,6 +47,7 @@ def train_eval_model(model_class, data, feature_cols, scaler_y, params, use_phys
 
 def optimize_and_train():
     print("--- Training Graph Neural Networks (HPO via Optuna) ---")
+    config = load_config()
     base_dir = get_base_dir()
     data_path = os.path.join(base_dir, 'data', 'processed', 'training_dataset.pt')
     
@@ -64,7 +70,7 @@ def optimize_and_train():
         "Physics_GNN": (GraphSAGEModel, True)
     }
     
-    mlflow.set_experiment("PHERL_UCDI_GNNs")
+    mlflow.set_experiment(config['mlflow']['experiment_name_gnn'])
     results = []
     
     models_dir = os.path.join(base_dir, 'models')
@@ -74,21 +80,22 @@ def optimize_and_train():
         print(f"\nRunning HPO for {name}...")
         
         def objective(trial):
+            ss = config['gnn']['search_space']
             params = {
-                'lr': trial.suggest_float('lr', 1e-4, 1e-2, log=True),
-                'hidden_dim': trial.suggest_categorical('hidden_dim', [32, 64, 128]),
-                'dropout': trial.suggest_float('dropout', 0.1, 0.5),
-                'weight_decay': trial.suggest_float('weight_decay', 1e-5, 1e-3, log=True),
-                'epochs': trial.suggest_int('epochs', 100, 400, step=100)
+                'lr': trial.suggest_float('lr', ss['lr'][0], ss['lr'][1], log=True),
+                'hidden_dim': trial.suggest_categorical('hidden_dim', ss['hidden_dim']),
+                'dropout': trial.suggest_float('dropout', ss['dropout'][0], ss['dropout'][1]),
+                'weight_decay': trial.suggest_float('weight_decay', ss['weight_decay'][0], ss['weight_decay'][1], log=True),
+                'epochs': trial.suggest_categorical('epochs', ss['epochs'])
             }
             if use_physics:
-                params['lambda_phys'] = trial.suggest_float('lambda_phys', 0.01, 1.0, log=True)
+                params['lambda_phys'] = trial.suggest_float('lambda_phys', ss['lambda_phys'][0], ss['lambda_phys'][1], log=True)
                 
             rmse, _ = train_eval_model(model_class, data, feature_cols, scaler_y, params, use_physics)
             return rmse
             
         study = optuna.create_study(direction='minimize')
-        study.optimize(objective, n_trials=10) # 10 trials for demonstration, scale up in production
+        study.optimize(objective, n_trials=config['gnn']['optuna_trials']) 
         
         best_params = study.best_params
         print(f"[{name}] Best params: {best_params} (RMSE: {study.best_value:.4f})")

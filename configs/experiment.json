@@ -1,0 +1,30 @@
+{
+    "dataset": {
+        "version": "master_feature_cube_v1",
+        "graph_version": "urban_climate_graph_v1",
+        "split_seed": 42,
+        "train_ratio": 0.7,
+        "val_ratio": 0.15,
+        "test_ratio": 0.15
+    },
+    "mlflow": {
+        "experiment_name_baselines": "PHERL_UCDI_Baselines",
+        "experiment_name_gnn": "PHERL_UCDI_GNNs"
+    },
+    "baselines": {
+        "n_estimators": 100,
+        "max_depth": 6,
+        "learning_rate": 0.1
+    },
+    "gnn": {
+        "optuna_trials": 15,
+        "search_space": {
+            "lr": [1e-4, 1e-2],
+            "hidden_dim": [32, 64, 128],
+            "dropout": [0.1, 0.5],
+            "weight_decay": [1e-5, 1e-3],
+            "epochs": [100, 400],
+            "lambda_phys": [0.01, 1.0]
+        }
+    }
+}

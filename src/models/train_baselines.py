@@ -9,13 +9,20 @@ from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import xgboost as xgb
 import lightgbm as lgb
+import json
 from catboost import CatBoostRegressor
 
 def get_base_dir():
     return os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
+def load_config():
+    config_path = os.path.join(get_base_dir(), 'configs', 'experiment.json')
+    with open(config_path, 'r') as f:
+        return json.load(f)
+
 def train_all_baselines():
     print("--- Training Comparative Baselines ---")
+    config = load_config()
     base_dir = get_base_dir()
     data_path = os.path.join(base_dir, 'data', 'processed', 'training_dataset.pt')
     
@@ -39,19 +46,23 @@ def train_all_baselines():
     
     y_test = scaler_y.inverse_transform(y_test_scaled.reshape(-1, 1)).flatten()
     
+    n_est = config['baselines']['n_estimators']
+    m_dep = config['baselines']['max_depth']
+    lr = config['baselines']['learning_rate']
+    
     models = {
-        "RandomForest": RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42, n_jobs=-1),
-        "ExtraTrees": ExtraTreesRegressor(n_estimators=100, max_depth=10, random_state=42, n_jobs=-1),
-        "XGBoost": xgb.XGBRegressor(n_estimators=100, max_depth=6, learning_rate=0.1, random_state=42, objective='reg:squarederror'),
-        "LightGBM": lgb.LGBMRegressor(n_estimators=100, max_depth=6, learning_rate=0.1, random_state=42, n_jobs=-1),
-        "CatBoost": CatBoostRegressor(iterations=100, depth=6, learning_rate=0.1, random_seed=42, verbose=0)
+        "RandomForest": RandomForestRegressor(n_estimators=n_est, max_depth=m_dep, random_state=config['dataset']['split_seed'], n_jobs=-1),
+        "ExtraTrees": ExtraTreesRegressor(n_estimators=n_est, max_depth=m_dep, random_state=config['dataset']['split_seed'], n_jobs=-1),
+        "XGBoost": xgb.XGBRegressor(n_estimators=n_est, max_depth=m_dep, learning_rate=lr, random_state=config['dataset']['split_seed'], objective='reg:squarederror'),
+        "LightGBM": lgb.LGBMRegressor(n_estimators=n_est, max_depth=m_dep, learning_rate=lr, random_state=config['dataset']['split_seed'], n_jobs=-1),
+        "CatBoost": CatBoostRegressor(iterations=n_est, depth=m_dep, learning_rate=lr, random_seed=config['dataset']['split_seed'], verbose=0)
     }
     
     results = []
     models_dir = os.path.join(base_dir, 'models')
     os.makedirs(models_dir, exist_ok=True)
     
-    mlflow.set_experiment("PHERL_UCDI_Baselines")
+    mlflow.set_experiment(config['mlflow']['experiment_name_baselines'])
     
     for name, model in models.items():
         with mlflow.start_run(run_name=name):
@@ -76,7 +87,7 @@ def train_all_baselines():
             r2 = r2_score(y_test, preds)
             
             # Logging
-            mlflow.log_params({"model_type": name, "n_estimators": 100})
+            mlflow.log_params({"model_type": name, "n_estimators": n_est, "max_depth": m_dep, "dataset_version": config['dataset']['version']})
             mlflow.log_metrics({"RMSE": rmse, "MAE": mae, "R2": r2, "TrainTime": train_time})
             
             # Save Model
