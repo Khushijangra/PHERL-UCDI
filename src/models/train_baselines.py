@@ -24,6 +24,10 @@ def train_all_baselines():
     print("--- Training Comparative Baselines ---")
     config = load_config()
     base_dir = get_base_dir()
+    
+    if os.path.exists(os.path.join(base_dir, 'reports', 'baseline_results.csv')):
+        print("Skipping baselines, baseline_results.csv already exists.")
+        return
     data_path = os.path.join(base_dir, 'data', 'processed', 'training_dataset.pt')
     
     if not os.path.exists(data_path):

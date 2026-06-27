@@ -77,6 +77,10 @@ def optimize_and_train():
     os.makedirs(models_dir, exist_ok=True)
     
     for name, (model_class, use_physics) in models_to_test.items():
+        if os.path.exists(os.path.join(models_dir, f"{name.lower()}.pt")):
+            print(f"\nSkipping {name}, already trained.")
+            continue
+            
         print(f"\nRunning HPO for {name}...")
         
         def objective(trial):
