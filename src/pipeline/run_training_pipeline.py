@@ -7,15 +7,15 @@ def get_base_dir():
     return os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def run_script(script_name):
-    script_path = os.path.join(get_base_dir(), 'src', 'models', script_name)
-    print(f"\n{'='*50}\nExecuting: {script_name}\n{'='*50}")
+    module_name = f"src.models.{script_name[:-3]}"
+    print(f"\n{'='*50}\nExecuting Module: {module_name}\n{'='*50}")
     
-    result = subprocess.run([sys.executable, script_path], capture_output=False, text=True)
+    result = subprocess.run([sys.executable, "-m", module_name], capture_output=False, text=True)
     if result.returncode != 0:
-        print(f"\n❌ FAILED: {script_name} exited with code {result.returncode}")
+        print(f"\n❌ FAILED: {module_name} exited with code {result.returncode}")
         sys.exit(result.returncode)
     else:
-        print(f"\n✅ SUCCESS: {script_name}")
+        print(f"\n✅ SUCCESS: {module_name}")
 
 def orchestrate_training():
     print("🚀 PHERL-UCDI++ Lightning GPU Pipeline Entry Point")
