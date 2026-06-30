@@ -23,8 +23,20 @@ def package_dataset():
     
     # 2. Extract Features and Target
     y_raw = df['lst_mean'].fillna(df['lst_mean'].mean()).values
-    exclude_cols = ['lst_mean', 'geometry', 'geometry_latlon', 'cell_id']
-    feature_cols = [c for c in df.columns if c not in exclude_cols and pd.api.types.is_numeric_dtype(df[c])]
+    
+    FEATURE_COLUMNS = [
+        "ndvi", "ndbi", "ndwi", "savi", "evi", "albedo", 
+        "vegetation_fraction", "impervious_fraction", 
+        "air_temperature", "dewpoint", "wind_u", "wind_v", 
+        "solar_radiation", "pressure", "population_density", 
+        "nighttime_lights", "building_density", "road_density", 
+        "heat_persistence", "exposure_index", "thermal_vulnerability_index", 
+        "urban_heat_equity_index", "spatial_lag_lst", 
+        "local_morans_i", "getis_ord_gi"
+    ]
+    
+    # Only include features that actually exist in the dataframe (in case some were dropped)
+    feature_cols = [c for c in FEATURE_COLUMNS if c in df.columns]
     
     X_raw = df[feature_cols].fillna(0).values
     
@@ -71,6 +83,15 @@ def package_dataset():
     train_mask[train_idx] = True
     val_mask[val_idx] = True
     test_mask[test_idx] = True
+    
+    # 5.5 Mask Permanent Water Bodies
+    if 'ndwi' in df.columns:
+        water_mask = df['ndwi'] > 0.3
+        water_indices = np.where(water_mask)[0]
+        train_mask[water_indices] = False
+        val_mask[water_indices] = False
+        test_mask[water_indices] = False
+        print(f"Masked {len(water_indices)} permanent water body nodes from loss evaluation.")
     
     # 6. Build PyG Data Object
     x_tensor = torch.tensor(X_scaled, dtype=torch.float)
