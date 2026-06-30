@@ -1,0 +1,6 @@
+Intervention,Mean_Cooling_C,Direction
+Tree Plantation (+20% NDVI),0.11979999999999999,Cooling
+Cool Roofs (+30% Albedo),0.07339999999999999,Cooling
+Building Density Reduction (-10%),-0.0048000000000000004,Heating
+Green Corridors (+15% Veg Fraction),-0.04429999999999999,Heating
+Reduced Impervious Surface (-20%),-0.0481,Heating

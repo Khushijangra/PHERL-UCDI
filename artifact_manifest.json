@@ -1,0 +1,141 @@
+{
+  "generated_at": "2026-06-30T09:32:33.240308Z",
+  "project": "PHERL-UCDI++",
+  "version": "v1.0-digital-twin-validated",
+  "artifacts": {
+    "models/best_model.pt": {
+      "sha256": "85c9122b347245bce248cb0b4410bc42d258b98bf17f88d03958f6c401aa3f7a",
+      "size_bytes": 49534,
+      "path": "/home/zeus/PHERL-UCDI/models/best_model.pt"
+    },
+    "models/best_model_metadata.json": {
+      "sha256": "4b312aa9561320a5571b8a47df8a1bfb92eb69ce82a51bebbc08e7fee98237b9",
+      "size_bytes": 80,
+      "path": "/home/zeus/PHERL-UCDI/models/best_model_metadata.json"
+    },
+    "models/gcn.pt": {
+      "sha256": "85c9122b347245bce248cb0b4410bc42d258b98bf17f88d03958f6c401aa3f7a",
+      "size_bytes": 49534,
+      "path": "/home/zeus/PHERL-UCDI/models/gcn.pt"
+    },
+    "models/gcn_config.json": {
+      "sha256": "69f0869ad56a127f8b2d8a4048e234b43850b8850482cb3a070b47d110505ba9",
+      "size_bytes": 132,
+      "path": "/home/zeus/PHERL-UCDI/models/gcn_config.json"
+    },
+    "models/graphsage.pt": {
+      "sha256": "6f379a6cfa18466054edf8dbf3a8e04a60a45f438e0065370f8028789d79fd78",
+      "size_bytes": 93346,
+      "path": "/home/zeus/PHERL-UCDI/models/graphsage.pt"
+    },
+    "models/gat.pt": {
+      "sha256": "e9155f10b957e708bf46d74cedda615ed239b56fa0caf3a8c3aa63cdd5e8e94d",
+      "size_bytes": 52002,
+      "path": "/home/zeus/PHERL-UCDI/models/gat.pt"
+    },
+    "models/physics_gnn.pt": {
+      "sha256": "dbe7ed38e00894ccd58521356d7d001176a436966657eb03a57996001c37782f",
+      "size_bytes": 32968,
+      "path": "/home/zeus/PHERL-UCDI/models/physics_gnn.pt"
+    },
+    "models/xgboost.pkl": {
+      "sha256": "c3c7661e8dd1857ef40b596a635b4891c988fd4dcb79d3bbf81edd0c9c247c7c",
+      "size_bytes": 439556,
+      "path": "/home/zeus/PHERL-UCDI/models/xgboost.pkl"
+    },
+    "models/lightgbm.pkl": {
+      "sha256": "403beb794b20713eb1f940e98814c0705855fd6be299059e4f29fe6bfb01c484",
+      "size_bytes": 255198,
+      "path": "/home/zeus/PHERL-UCDI/models/lightgbm.pkl"
+    },
+    "models/catboost.pkl": {
+      "sha256": "bcd7144907817d3301c5d3677a82fc8340ded0caca56cf7b0721f02f3d3b3499",
+      "size_bytes": 120062,
+      "path": "/home/zeus/PHERL-UCDI/models/catboost.pkl"
+    },
+    "models/randomforest.pkl": {
+      "sha256": "7edf589d78a9cebbf9af1173094dc57dd255ec63022a3e0e29999f2f7747f063",
+      "size_bytes": 929311,
+      "path": "/home/zeus/PHERL-UCDI/models/randomforest.pkl"
+    },
+    "reports/comparison_table.csv": {
+      "sha256": "98b5153cb7293162ccf5183d8d2eec00a623fd9573a5be21215c0cebf95a7e12",
+      "size_bytes": 973,
+      "path": "/home/zeus/PHERL-UCDI/reports/comparison_table.csv"
+    },
+    "reports/surrogate_report.md": {
+      "sha256": "9d7abf63d8de94e38e866796fe01c7cff501bd411ebaef9d33a7e41dcd884b6a",
+      "size_bytes": 1000,
+      "path": "/home/zeus/PHERL-UCDI/reports/surrogate_report.md"
+    },
+    "reports/baseline_results.csv": {
+      "sha256": "8fceef9fb866355a84b3fe039458adfa5bb2ceb219764167858d260678c4a31b",
+      "size_bytes": 581,
+      "path": "/home/zeus/PHERL-UCDI/reports/baseline_results.csv"
+    },
+    "reports/gnn_results.csv": {
+      "sha256": "b2e9f707bea3d6b58df6ecaf8de9db33c7b17302b2994b0c5e9718835afc11c5",
+      "size_bytes": 471,
+      "path": "/home/zeus/PHERL-UCDI/reports/gnn_results.csv"
+    },
+    "reports/feature_importance.png": {
+      "sha256": "97b8388612320c1aa5d870289adc3eea01303524fae6ae19009ddd81437e64f2",
+      "size_bytes": 72983,
+      "path": "/home/zeus/PHERL-UCDI/reports/feature_importance.png"
+    },
+    "data/processed/training_dataset.pt": {
+      "sha256": "8a8049e17e56fc2303c740c8b65b3ce1d18cd3a915ba60f175b5507fb7c918c6",
+      "size_bytes": 3004929,
+      "path": "/home/zeus/PHERL-UCDI/data/processed/training_dataset.pt"
+    },
+    "data/processed/digital_twin_sanity_report.md": {
+      "sha256": "7a28ff77b0a8aa957c84806c65523f8e3b51f6004a13ae829f9e2aa0f90c9be8",
+      "size_bytes": 527,
+      "path": "/home/zeus/PHERL-UCDI/data/processed/digital_twin_sanity_report.md"
+    },
+    "configs/experiment.json": {
+      "sha256": "a733fe1200320a8c66fc41185afc9dfe78c51ce84aa066a469e167f1827ef0e5",
+      "size_bytes": 780,
+      "path": "/home/zeus/PHERL-UCDI/configs/experiment.json"
+    },
+    "reports/counterfactual_analysis.png": {
+      "sha256": "917b4d4987567a7f52c6ae85f9a5e4ec5365a0b95e2bbf0bbd295177896fba5e",
+      "size_bytes": 84608,
+      "path": "/home/zeus/PHERL-UCDI/reports/counterfactual_analysis.png",
+      "optional": true
+    },
+    "reports/counterfactual_results.csv": {
+      "sha256": "4cb5e60bd7a49401626a212345aa300dbccbe7b41cd561d6ddfdf6f0446eee7a",
+      "size_bytes": 637,
+      "path": "/home/zeus/PHERL-UCDI/reports/counterfactual_results.csv",
+      "optional": true
+    },
+    "reports/residual_plot.png": {
+      "sha256": "71f224c9da8f1c582ec667031003394a5c6f3b854620b9474bb925c6d8871754",
+      "size_bytes": 136183,
+      "path": "/home/zeus/PHERL-UCDI/reports/residual_plot.png",
+      "optional": true
+    },
+    "reports/learning_curve.png": {
+      "sha256": "d5734ada8fdf2db87624de95977bc8346f367a164c9dea3f669e8a758763742f",
+      "size_bytes": 73762,
+      "path": "/home/zeus/PHERL-UCDI/reports/learning_curve.png",
+      "optional": true
+    },
+    "reports/feature_importance.csv": {
+      "sha256": "5fc1f121d59859ea1498ed8e6c9ccc00e736e05e76f0266019c46358544af3bd",
+      "size_bytes": 456,
+      "path": "/home/zeus/PHERL-UCDI/reports/feature_importance.csv",
+      "optional": true
+    },
+    "reports/intervention_summary.csv": {
+      "sha256": "86c18a53d6ecca64f914a15c3836cbff4dde52006fef8dcf7f17d4e220b7aa5f",
+      "size_bytes": 327,
+      "path": "/home/zeus/PHERL-UCDI/reports/intervention_summary.csv",
+      "optional": true
+    }
+  },
+  "missing": [],
+  "status": "COMPLETE",
+  "total_artifacts": 25
+}

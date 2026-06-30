@@ -1,0 +1,5 @@
+{
+  "best_model_name": "GCN",
+  "is_tabular": false,
+  "source_file": "gcn.pt"
+}
