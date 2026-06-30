@@ -95,19 +95,20 @@ def simulate_interventions(model, model_type, dataset, top_k=10):
             if feature_name not in col_map:
                 continue
 
-            # Clone node features and apply perturbation
-            x_mod = data.x[node_idx].clone().unsqueeze(0)  # shape [1, F]
+            # Clone full graph features to preserve spatial context
+            x_mod = data.x.clone()
             feat_idx = col_map[feature_name]
-            x_mod[0, feat_idx] += config["delta_std"]
+            x_mod[node_idx, feat_idx] += config["delta_std"]
 
-            # Predict modified LST
-            ei = torch.tensor([[0], [0]], dtype=torch.long)
+            # Predict modified LST using the full graph
             if model_type == "pytorch":
                 model.eval()
                 with torch.no_grad():
-                    y_mod_scaled = model(x_mod, ei).item()
+                    out_mod = model(x_mod, data.edge_index)
+                    y_mod_scaled = out_mod[node_idx].item()
             else:
-                y_mod_scaled = model.predict(x_mod.numpy())[0]
+                out_mod = model.predict(x_mod.numpy())
+                y_mod_scaled = out_mod[node_idx]
 
             modified_temp = scaler_y.inverse_transform([[y_mod_scaled]])[0][0]
             delta_t = modified_temp - baseline_temp

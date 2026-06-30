@@ -11,7 +11,8 @@ import hashlib
 import datetime
 
 def get_base_dir():
-    return os.path.dirname(os.path.dirname(__file__))
+    # src/validation/freeze_artifacts.py -> src/validation -> src -> project_root
+    return os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 def sha256_file(path):
     h = hashlib.sha256()
