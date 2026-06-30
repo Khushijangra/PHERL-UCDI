@@ -31,6 +31,31 @@ def orchestrate_training():
     run_script('train_gnn.py')
     run_script('compare_models.py')
     
+    # Run validation scripts
+    print(f"\n{'='*50}\nExecuting Module: src.validation.sanity_verifier\n{'='*50}")
+    result = subprocess.run([sys.executable, "-m", "src.validation.sanity_verifier"], capture_output=False, text=True)
+    if result.returncode != 0:
+        print(f"\n❌ FAILED: src.validation.sanity_verifier exited with code {result.returncode}")
+        sys.exit(result.returncode)
+    else:
+        print(f"\n✅ SUCCESS: src.validation.sanity_verifier")
+        
+    print(f"\n{'='*50}\nExecuting Module: src.validation.explainability\n{'='*50}")
+    result = subprocess.run([sys.executable, "-m", "src.validation.explainability"], capture_output=False, text=True)
+    if result.returncode != 0:
+        print(f"\n❌ FAILED: src.validation.explainability exited with code {result.returncode}")
+        sys.exit(result.returncode)
+    else:
+        print(f"\n✅ SUCCESS: src.validation.explainability")
+        
+    print(f"\n{'='*50}\nExecuting Module: src.validation.counterfactual\n{'='*50}")
+    result = subprocess.run([sys.executable, "-m", "src.validation.counterfactual"], capture_output=False, text=True)
+    if result.returncode != 0:
+        print(f"\n❌ FAILED: src.validation.counterfactual exited with code {result.returncode}")
+        sys.exit(result.returncode)
+    else:
+        print(f"\n✅ SUCCESS: src.validation.counterfactual")
+    
     print("\n🎉 ML Training Pipeline Completed!")
     print("Artifacts generated in /models/ and /reports/.")
     print("Please download best_model.pt and CSVs back to the local development node.")
