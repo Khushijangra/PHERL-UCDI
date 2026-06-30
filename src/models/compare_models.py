@@ -39,12 +39,25 @@ def compare_all_models():
     print(f"\nBest Model: {best_model_name}")
     
     # Symlink or copy the best model to best_model.pt
-    best_ext = 'pkl' if best_model_name in df_base['Model'].values else 'pt'
+    best_is_tabular = best_model_name in df_base['Model'].values
+    best_ext = 'pkl' if best_is_tabular else 'pt'
     best_source = os.path.join(models_dir, f"{best_model_name.lower()}.{best_ext}")
     best_dest = os.path.join(models_dir, 'best_model.pt')
     
     if os.path.exists(best_source):
         shutil.copy(best_source, best_dest)
+    
+    # Write best_model_metadata.json so inference.py can resolve architecture dynamically
+    import json
+    metadata = {
+        "best_model_name": best_model_name,
+        "is_tabular": best_is_tabular,
+        "source_file": f"{best_model_name.lower()}.{best_ext}"
+    }
+    metadata_path = os.path.join(models_dir, 'best_model_metadata.json')
+    with open(metadata_path, 'w') as f:
+        json.dump(metadata, f, indent=2)
+    print(f"Metadata written to {metadata_path}")
     
     # Generate Surrogate Report
     report = f"""# Digital Twin Scientific Validation Report
