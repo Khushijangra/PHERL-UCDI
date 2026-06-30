@@ -79,10 +79,10 @@ def freeze_artifacts():
                     "size_bytes": size,
                     "path": fpath
                 }
-                print(f"  ✅ {rel_key} ({size:,} bytes) — {sha[:16]}...")
+                print(f"  [OK] {rel_key} ({size:,} bytes) - {sha[:16]}...")
             else:
                 manifest["missing"].append(rel_key)
-                print(f"  ❌ MISSING: {rel_key}")
+                print(f"  [MISSING]: {rel_key}")
                 all_present = False
 
     # Optional artifacts (generated but not required for release)
@@ -106,7 +106,7 @@ def freeze_artifacts():
                 "path": fpath,
                 "optional": True
             }
-            print(f"  ✅ [optional] {subdir}/{fname}")
+            print(f"  [OK] [optional] {subdir}/{fname}")
 
     manifest["status"] = "COMPLETE" if all_present else "INCOMPLETE"
     manifest["total_artifacts"] = len(manifest["artifacts"])

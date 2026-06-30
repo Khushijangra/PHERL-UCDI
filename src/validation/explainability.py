@@ -48,14 +48,14 @@ def generate_shap_or_importance(model, model_type, X, feature_cols, reports_dir)
         plt.tight_layout()
         plt.savefig(os.path.join(reports_dir, 'shap_summary.png'), dpi=150)
         plt.close()
-        print("  → shap_summary.png saved")
+        print("  Saved shap_summary.png")
 
         # Also save per-feature mean |SHAP|
         mean_shap = np.abs(shap_values).mean(axis=0)
         df_shap = pd.DataFrame({'feature': feature_cols, 'mean_abs_shap': mean_shap})
         df_shap = df_shap.sort_values('mean_abs_shap', ascending=False)
         df_shap.to_csv(os.path.join(reports_dir, 'shap_values.csv'), index=False)
-        print("  → shap_values.csv saved")
+        print("  Saved shap_values.csv")
 
     else:
         # Gradient-based proxy for GNN: compute output gradient w.r.t. input features
@@ -84,8 +84,8 @@ def generate_shap_or_importance(model, model_type, X, feature_cols, reports_dir)
         plt.savefig(os.path.join(reports_dir, 'feature_importance.png'), dpi=150)
         plt.close()
         df_imp.to_csv(os.path.join(reports_dir, 'feature_importance.csv'), index=False)
-        print("  → feature_importance.png saved")
-        print("  → feature_importance.csv saved")
+        print("  Saved feature_importance.png")
+        print("  Saved feature_importance.csv")
 
 
 # ---------------------------------------------------------------------------
@@ -133,7 +133,7 @@ def generate_residual_plot(model, model_type, dataset, reports_dir):
     plt.tight_layout()
     plt.savefig(os.path.join(reports_dir, 'residual_plot.png'), dpi=150)
     plt.close()
-    print("  → residual_plot.png saved")
+    print("  Saved residual_plot.png")
 
 
 # ---------------------------------------------------------------------------
@@ -169,7 +169,7 @@ def generate_leaderboard_chart(reports_dir):
     plt.tight_layout()
     plt.savefig(os.path.join(reports_dir, 'learning_curve.png'), dpi=150)
     plt.close()
-    print("  → learning_curve.png (leaderboard chart) saved")
+    print("  Saved learning_curve.png (leaderboard chart)")
 
 
 # ---------------------------------------------------------------------------

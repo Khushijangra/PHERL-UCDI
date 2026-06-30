@@ -138,8 +138,8 @@ def generate_counterfactual_report(df_results, reports_dir):
     # Save CSV
     df_results.to_csv(os.path.join(reports_dir, 'counterfactual_results.csv'), index=False)
     df_summary.to_csv(os.path.join(reports_dir, 'intervention_summary.csv'), index=False)
-    print("  → counterfactual_results.csv saved")
-    print("  → intervention_summary.csv saved")
+    print("  Saved counterfactual_results.csv")
+    print("  Saved intervention_summary.csv")
 
     # Plot
     fig, ax = plt.subplots(figsize=(11, 6))
@@ -161,7 +161,7 @@ def generate_counterfactual_report(df_results, reports_dir):
     plt.tight_layout()
     plt.savefig(os.path.join(reports_dir, 'counterfactual_analysis.png'), dpi=150)
     plt.close()
-    print("  → counterfactual_analysis.png saved")
+    print("  Saved counterfactual_analysis.png")
 
     return df_summary
 
