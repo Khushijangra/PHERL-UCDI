@@ -25,14 +25,25 @@ def package_dataset():
     y_raw = df['lst_mean'].fillna(df['lst_mean'].mean()).values
     
     FEATURE_COLUMNS = [
-        "ndvi", "ndbi", "ndwi", "savi", "evi", "albedo", 
-        "vegetation_fraction", "impervious_fraction", 
-        "air_temperature", "dewpoint", "wind_u", "wind_v", 
-        "solar_radiation", "pressure", "population_density", 
-        "nighttime_lights", "building_density", "road_density", 
-        "heat_persistence", "exposure_index", "thermal_vulnerability_index", 
-        "urban_heat_equity_index", "spatial_lag_lst", 
-        "local_morans_i", "getis_ord_gi"
+        "ndvi",
+        "ndbi",
+        "ndwi",
+        "savi",
+        "evi",
+        "albedo",
+        "vegetation_fraction",
+        "impervious_fraction",
+        "air_temperature",
+        "dewpoint",
+        "wind_u",
+        "wind_v",
+        "solar_radiation",
+        "pressure",
+        "population_density",
+        "building_density",
+        "road_density",
+        "latitude",
+        "longitude"
     ]
     
     # Only include features that actually exist in the dataframe (in case some were dropped)
@@ -86,7 +97,7 @@ def package_dataset():
     
     # 5.5 Mask Permanent Water Bodies
     if 'ndwi' in df.columns:
-        water_mask = df['ndwi'] > 0.3
+        water_mask = df['ndwi'] > -0.10
         water_indices = np.where(water_mask)[0]
         train_mask[water_indices] = False
         val_mask[water_indices] = False
